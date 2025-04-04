@@ -75,6 +75,10 @@ module.exports = env => {
                     use: ["style-loader", "css-loader", "postcss-loader"]
                 },
                 {
+                    test: /.s[ac]ss$/i,
+                    use: ['style-loader', 'css-loader', 'sass-loader']
+                },
+                {
                     test: /\.(svg|eot|ttf|woff|woff2|webp|png|jpg|gif)$/i,
                     type: "asset/resource"
                 },

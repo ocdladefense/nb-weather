@@ -29,7 +29,58 @@
         }
     </style>
 
-    <div id="app"></div>
+    <div id="app-container">
+
+        <div class="app">
+
+            <div class="zip-form">
+                <form id="zipForm">
+
+                    <div class="flex-parent">
+                        <label for="zipcode">Zip</label>
+                        <input class="form-control" type="input" id="zipcode" name="zipcode" value="" required />
+                        <button type="submit" class="btn btn-success"> Get the forcast!</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="weatherList">
+                <!--
+            <div class="weather-list-item" data-index="0">
+              <h2>2 / 15</h2>
+              <h3>Wednesday</h3>
+              <h3>19.5°F | 43.5°F</h3>
+            </div>
+            -->
+            </div>
+
+            <div id="currentDay">
+                <!--
+              <h1 class="day-header">Thursday in Eugene</h1>
+              <div class="weather">
+              <p>
+                  <img src="http://openweathermap.org/img/w/04d.png" alt="overcast clouds">
+                  overcast clouds
+              </p>
+            </div>
+            <div class="details flex-parent">
+              <div class="temperature-breakdown">
+                <p>Morning Temperature: 29.03°F</p>
+                <p>Day Temperature: 42.19°F</p>
+                <p>Evening Temperature: 35.33°F</p>
+                <p>Night Temperature: 31.95°F</p>
+              </div>
+              <div class="misc-details">
+                <p>Atmospheric Pressure: 1021 hPa</p>
+                <p>Humidity: 74%</p>
+                <p>Wind Speed: 1.23 mph</p>
+              </div>
+            </div>
+            -->
+            </div>
+
+        </div>
+    </div>
     <noscript>
         <style>
             body {
