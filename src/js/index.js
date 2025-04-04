@@ -7,8 +7,8 @@ import App from './App';
 // import "@themes/active/css/theme.css";
 
 // Uncomment when ready to use components to display the weather data.
-// import React from 'react';
-// import { createRoot } from 'react-dom/client';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 
 // without this I get an error at runtime.  babel 7 and preset env.
 const regeneratorRuntime = require("regenerator-runtime");
