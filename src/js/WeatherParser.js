@@ -14,5 +14,7 @@ class WeatherParser {
             return key;
         }
         this.grouped = forecast.groupBy(GroupBy);
+
+        // mock up what this object looks like, so you know how you're going to be accessing it.
     }
 }

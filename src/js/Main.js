@@ -4,7 +4,7 @@
 import { getWeekday, getDate } from './dates';
 
 // parseForecast is the ONLY export (default) from weatherParsing.js
-import parseForecast from './weatherParsing';
+import WeatherParser from './WeatherParser';
 
 
 // sample openweathermap weather api call
@@ -13,7 +13,7 @@ import parseForecast from './weatherParsing';
 // http://api.openweathermap.org/geo/1.0/zip?zip=97405,US&appid=e366707bc2ea3e949fb1c0a16ce76d59
 
 
-export default class App {
+export default class Main {
     constructor() {
         this.state = {
             timezoneOffset: 0,
@@ -101,6 +101,15 @@ export default class App {
                     .then(response => response.json())
                     .then(data => {
                         this.state.timezoneOffset = data.city.timezone;
+
+                        // We can import WeatherParser and DailyForecast and consume those here.
+                        //     let parser = new WeatherParser(forecast);
+
+                        /*
+                                                this.state.forecast = parser.grouped.map(function(day) {
+                                                    return new DailyForecast(day);
+                                                });
+                                                */
                         this.state.forecast = parseForecast(data.list, this.state.timezoneOffset);
 
                         // Render the weather list and clear the current day details
