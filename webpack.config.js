@@ -13,6 +13,7 @@ module.exports = env => {
             // helper: path.resolve(__dirname, './src/js/helper.js')
             // init_head: path.resolve(__dirname, "src/js/custom-elements.js")
         },
+        ignoreWarnings: [(h, v) => true],
         snapshot: {
             managedPaths: ["/node_modules"],
             unmanagedPaths: ["/dev_modules"]
