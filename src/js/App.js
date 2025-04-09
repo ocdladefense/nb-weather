@@ -22,6 +22,9 @@ export default class App {
             forecast: [],
             selectedDate: null
         };
+        // Documentation for the API calls
+        // https://openweathermap.org/forecast5
+        // https://openweathermap.org/api/geocoding
         this.weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?units=imperial&";
         this.geoUrl = "http://api.openweathermap.org/geo/1.0/zip?";
         this.apikey = "appid=f62d906d0cba21cc74c1fceb053bcb7e";
