@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const Dotenv = require('dotenv-webpack');
 
 module.exports = env => {
     console.log(env);
@@ -95,9 +96,11 @@ module.exports = env => {
             ]
         },
         plugins: [
+            new Dotenv(),
             new webpack.DefinePlugin({
                 USE_MOCK: JSON.stringify(env.USE_MOCK || false),// Can we even pass booleans from the CLI?
-                MODULE_PATH: JSON.stringify(env.MODULE_PATH || "")
+                MODULE_PATH: JSON.stringify(env.MODULE_PATH || ""),
+                'process.env.API_KEY' : JSON.stringify(process.env.API_KEY)
             }),
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, "./src/index.html"),
