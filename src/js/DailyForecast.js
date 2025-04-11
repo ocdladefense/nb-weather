@@ -16,8 +16,8 @@ class DailyForecast {
       oneDay.wind = forecast[i + NOON].wind.speed;
       oneDay.humidity = forecast[i + NOON].main.humidity;
 
-
-
+const formattedDate = `${new Date(forecastDay.dt).getMonth() + 1}/${new Date(forecastDay.dt).getDate()}`;
+/*
     static NOON = 4;
     static SIXAM = 2;
     static SIXPM = 6;
@@ -28,7 +28,11 @@ class DailyForecast {
     static NIGHT = DailyForecast.NINEPM;
     static PERDAY = 8;
     static DAYS = 4;
-
+*/
+    static MORNING = 6;
+    static NOON = 12;
+    static EVENING = 18;
+    static NIGHT = 22;
 
 
     constructor(data) {
@@ -44,6 +48,7 @@ class DailyForecast {
         //return forecast[i + NOON].main.temp;
     }
 
+   
 
     getLow() {
 
@@ -67,6 +72,18 @@ class DailyForecast {
 
     // We need an algorithm to find one or more data points that meet some creiteria around timestamp
     // For example, if the timestamp is 12:00, we want to find the data points that are closest to 12:00.
+    // make a decision about how to determine the morning hour.
+    getPartOfDay(part) {
+        let dataLength = this.data.length;
+        for (let i = 0; i < dataLength; i++) {
+            let dt = new Date(this.data[i].dt * 1000);
+            dt = dt.getHours();
+            if (dt >= part) {
+                return dt;
+            }
+        }
+    }
+
     getDataByHour(hours) {
         return this.data.filter((hours) => {
             let dt = new Date(hours.dt * 1000);
@@ -76,27 +93,30 @@ class DailyForecast {
         });
     }
 
+    getFormattedDate() {
+        return `${new Date(forecastDay.dt).getMonth() + 1}/${new Date(forecastDay.dt).getDate()}`;
+    }
+
     getMorningTemp() {
 
         // Get any data points that are representative of "morning" (6am)
-        let data = this.getData(DailyForecast.SIXAM);
-        data = data[0];
-
+        let data = this.getDataByHour(this.getPartOfDay(DailyForecast.MORNING));
+        
         return data.main.temp;
     }
 
 
     getDayTemp() {
         // Get any data points that are representative of "morning" (6am)
-        let data = this.getData(DailyForecast.NOON);
-        data = data[0];
-
+        let data = this.getDataByHour(this.getPartOfDay(DailyForecast.NOON));
+        
         return data.main.temp;
+
+        
     }
     getEveningTemp() {
         // Get any data points that are representative of "morning" (6am)
-        let data = this.getData(DailyForecast.SIXPM);
-        data = data[0];
+        let data = this.getDataByHour(this.getPartOfDay(DailyForecast.EVENING));
 
         return data.main.temp;
     }
@@ -104,27 +124,31 @@ class DailyForecast {
 
     getNightTemp() {
         // Get any data points that are representative of "morning" (6am)
-        let data = this.getData(DailyForecast.NINEPM);
-        data = data[0];
+        let data = this.getDataByHour(this.getPartOfDay(DailyForecast.NIGHT));
 
         return data.main.temp;
     }
 
 
     getDescription() {
-        return this.data[i + NOON].weather[0].description;
+        let data = this.getDataByHour(this.getPartOfDay(NOON))
+        return data.weather[0].description
     }
     getIcon() {
-        return this.data[i + NOON].weather[0].icon;
+        let data = this.getDataByHour(this.getPartOfDay(NOON))
+        return data.weather[0].icon;
     }
     getPressure() {
-        return this.data[i + NOON].main.pressure;
+        let data = this.getDataByHour(this.getPartOfDay(NOON))
+        return data.main.pressure;
     }
     getWind() {
-        return this.data[i + NOON].wind.speed;
+        let data = this.getDataByHour(this.getPartOfDay(NOON))
+        return data.wind.speed;
     }
     getHumidity() {
-        return this.data[i + NOON].main.humidity;
+        let data = this.getDataByHour(this.getPartOfDay(NOON))
+        return data.main.humidity;
     }
 
 

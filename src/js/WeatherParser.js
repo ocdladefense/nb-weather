@@ -8,13 +8,21 @@ class WeatherParser {
 
             //make a date with format month.day
             let month = dt.getMonth();
-            let day = dt.getDay();
+            let day = dt.getDate();
             let key = month + "." + day;
 
             return key;
         }
-        this.grouped = forecast.groupBy(GroupBy);
+        this.grouped = Object.groupBy(forecast, GroupBy);
 
         // mock up what this object looks like, so you know how you're going to be accessing it.
+        /* 
+
+        {
+            month1.day1: [{forecastItem1}, {forecastItem1}, {forecastItem1}],
+            month2.day2: [{forecastItem2}, {forecastItem2}, {forecastItem2}],
+        }
+        
+        */
     }
 }

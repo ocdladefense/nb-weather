@@ -1,7 +1,7 @@
 
 
 // getWeekday and getDate are named exports (functions) from dates.js
-import { getWeekday, getDate } from './dates';
+import { getWeekday } from './dates';
 
 // parseForecast is the ONLY export (default) from weatherParsing.js
 import WeatherParser from './WeatherParser';
@@ -41,7 +41,7 @@ export default class Main {
         console.log(forecastDay.dt)
         return `<div class="weather-list-item" onclick="weather.renderCurrentDay(${index})">
    ${formattedDate} - ${getWeekday(new Date(forecastDay.dt))}:
-   High ${forecastDay.maxTemp}&deg;F, Low ${forecastDay.minTemp}&deg;F
+   High ${forecastDay.getHigh()}&deg;F, Low ${forecastDay.minTemp}&deg;F
  </div>`;
 
     }
@@ -61,6 +61,7 @@ export default class Main {
     // Render detailed weather information for the selected day
     renderCurrentDay(index) {
         const selectedDay = this.state.forecast[index];
+        
         const formattedDate = `${new Date(selectedDay.dt).getMonth() + 1}/${new Date(selectedDay.dt).getDate()}`;
 
 
@@ -110,7 +111,13 @@ export default class Main {
                                                     return new DailyForecast(day);
                                                 });
                                                 */
-                        this.state.forecast = parseForecast(data.list, this.state.timezoneOffset);
+                        let parser = new WeatherParser(data.list);
+
+                        this.state.forecast = parser.grouped.map((day) => {
+                            return new DailyForecast(day);
+                        });
+
+                       
 
                         // Render the weather list and clear the current day details
                         this.renderWeatherList(this.state.forecast);

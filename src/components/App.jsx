@@ -14,6 +14,7 @@ export default function App() {
 
 return (
 
+
 <div class="app">
 
     <div class="zip-form">
@@ -21,7 +22,7 @@ return (
 
             <div class="flex-parent">
                 <label for="zipcode">Zip</label>
-                <input class="form-control" type="input" id="zipcode" name="zipcode" value="" required />
+                <input class="form-control" type="input" id="zipcode" name="zipcode" defaultValue="" required />
                 <button type="submit" class="btn btn-success"> Get the forcast!</button>
             </div>
         </form>
