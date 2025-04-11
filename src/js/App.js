@@ -6,12 +6,12 @@ import { getWeekday, getDate } from './dates';
 import parseForecast from './weatherParsing';
 
 const API_KEY = process.env.API_KEY;
-if(process.env.NODE_ENV === 'debug'){
+if (process.env.NODE_ENV === 'debug') {
     setDebugLevel(1)
 }
 
-import Controller from './Controller.js' 
-window.Controller = Controller
+import Controller from './Controller.js';
+window.Controller = Controller;
 
 // sample openweathermap weather api call
 //https://api.openweathermap.org/data/2.5/forecast?units=imperial&lat=43.9698&lon=-123.2006&API_KEY
