@@ -1,34 +1,7 @@
 
 
-class DailyForecast {
+export default class DailyForecast {
 
-        oneDay.dt = new Date(forecast[i + NOON].dt * 1000);
-      oneDay.temp = forecast[i + NOON].main.temp;
-      oneDay.minTemp = findMinTemp(forecast, i);
-      oneDay.maxTemp = findMaxTemp(forecast, i);
-      oneDay.morningTemp = forecast[i + MORNING].main.temp;
-      oneDay.dayTemp = forecast[i + DAY].main.temp;
-      oneDay.eveningTemp = forecast[i + EVENING].main.temp;
-      oneDay.nightTemp = forecast[i + NIGHT].main.temp;
-      oneDay.description = forecast[i + NOON].weather[0].description;
-      oneDay.icon = forecast[i + NOON].weather[0].icon;
-      oneDay.pressure = forecast[i + NOON].main.pressure;
-      oneDay.wind = forecast[i + NOON].wind.speed;
-      oneDay.humidity = forecast[i + NOON].main.humidity;
-
-const formattedDate = `${new Date(forecastDay.dt).getMonth() + 1}/${new Date(forecastDay.dt).getDate()}`;
-/*
-    static NOON = 4;
-    static SIXAM = 2;
-    static SIXPM = 6;
-    static NINEPM = 7;
-    static MORNING = DailyForecast.SIXAM;
-    static DAY = DailyForecast.NOON;
-    static EVENING = DailyForecast.SIXPM;
-    static NIGHT = DailyForecast.NINEPM;
-    static PERDAY = 8;
-    static DAYS = 4;
-*/
     static MORNING = 6;
     static NOON = 12;
     static EVENING = 18;
@@ -41,14 +14,7 @@ const formattedDate = `${new Date(forecastDay.dt).getMonth() + 1}/${new Date(for
     }
 
 
-    // This would never actually get used.  Deprecate. 
-    getTemp() {
 
-        // throw DataNotFoundError("No data found for this date.");
-        //return forecast[i + NOON].main.temp;
-    }
-
-   
 
     getLow() {
 
@@ -84,19 +50,22 @@ const formattedDate = `${new Date(forecastDay.dt).getMonth() + 1}/${new Date(for
         }
     }
 
-    getDataByHour(hours) {
-        return this.data.filter((hours) => {
-            let dt = new Date(hours.dt * 1000);
+    getDataByHour(h1) {
+        return this.data.filter((h) => {
+            let dt = new Date(h.dt * 1000);
             let hours = dt.getHours();
 
-            return hours === hours;
+            return hours === h1;
         });
     }
 
     getFormattedDate() {
-        return `${new Date(forecastDay.dt).getMonth() + 1}/${new Date(forecastDay.dt).getDate()}`;
+        return `${new Date(this.data[0].dt * 1000).getMonth() + 1}/${new Date(this.data[0].dt * 1000).getDate()}`;
     }
 
+
+
+    // These methods need work.
     getMorningTemp() {
 
         // Get any data points that are representative of "morning" (6am)

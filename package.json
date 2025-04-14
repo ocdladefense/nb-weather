@@ -49,6 +49,7 @@
     "dotenv-webpack": "^8.1.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.5.4",
+    "jest": "^29.7.0",
     "jsdoc": "^4.0.2",
     "package-json-merge": "git+https://github.com/ocdladefense/package-json-merge.git",
     "postcss-loader": "^8.1.1",

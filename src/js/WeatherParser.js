@@ -1,10 +1,10 @@
-class WeatherParser {
+export default class WeatherParser {
     grouped;
     constructor(forecast) {
         function GroupBy(obj) {
 
             //translate dt to JS date
-            let dt = new Date(data[i].dt * 1000);
+            let dt = new Date(obj.dt * 1000);
 
             //make a date with format month.day
             let month = dt.getMonth();

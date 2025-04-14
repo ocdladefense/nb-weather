@@ -14,9 +14,23 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from '../components/App.jsx';
 
+import { getWeekday } from './dates';
+
+// parseForecast is the ONLY export (default) from weatherParsing.js
+import WeatherParser from './WeatherParser';
+
+import Controller from './Controller.js';
+
+const API_KEY = process.env.API_KEY;
+if (process.env.NODE_ENV === 'debug') {
+    setDebugLevel(1)
+}
+
+
+window.c = new Controller(API_KEY);
+
 // without this I get an error at runtime.  babel 7 and preset env.
 const regeneratorRuntime = require("regenerator-runtime");
-
 
 
 /**
@@ -24,10 +38,15 @@ const regeneratorRuntime = require("regenerator-runtime");
  */
 const $root = document.getElementById("app-container");
 const root = createRoot($root);
-root.render(<App />);
+
+// temporarily fetching a forecast for the zipcode 97477 
+let forecast =  await window.c.fetchForecast("97477");
+console.log(forecast);
+
+root.render(<App forecast={forecast} />);
 
 
 
 
 // Initialize the Weather class on window load
-window.onload = () => { new Main(); }
+//window.onload = () => { new Main(); }

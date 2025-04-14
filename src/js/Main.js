@@ -5,13 +5,15 @@ import { getWeekday } from './dates';
 // parseForecast is the ONLY export (default) from weatherParsing.js
 import WeatherParser from './WeatherParser';
 
+import Controller from './Controller.js';
+
 const API_KEY = process.env.API_KEY;
 if (process.env.NODE_ENV === 'debug') {
     setDebugLevel(1)
 }
 
-import Controller from './Controller.js';
-window.Controller = Controller;
+
+window.c = new Controller(API_KEY);
 
 // sample openweathermap weather api call
 //https://api.openweathermap.org/data/2.5/forecast?units=imperial&lat=43.9698&lon=-123.2006&API_KEY
