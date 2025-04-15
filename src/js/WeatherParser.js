@@ -1,5 +1,8 @@
+import DailyForecast from "./DailyForecast";
+
 export default class WeatherParser {
     grouped;
+    finalArray;
     constructor(forecast) {
         function GroupBy(obj) {
 
@@ -15,14 +18,10 @@ export default class WeatherParser {
         }
         this.grouped = Object.groupBy(forecast, GroupBy);
 
-        // mock up what this object looks like, so you know how you're going to be accessing it.
-        /* 
-
-        {
-            month1.day1: [{forecastItem1}, {forecastItem1}, {forecastItem1}],
-            month2.day2: [{forecastItem2}, {forecastItem2}, {forecastItem2}],
+        this.finalArray = [];
+        for (let day in this.grouped) {
+            let foo = this.grouped[day];
+            this.finalArray.push(new DailyForecast(foo));
         }
-        
-        */
     }
 }

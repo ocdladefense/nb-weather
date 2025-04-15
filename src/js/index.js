@@ -5,7 +5,7 @@ import '../css/styles.scss';
 import data from '../data/data.json';
 console.log(data);
 
-import Main from './Main.js';
+//import Main from './Main.js';
 // import "../css/input.css";
 // import "@themes/active/css/theme.css";
 
@@ -13,12 +13,6 @@ import Main from './Main.js';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from '../components/App.jsx';
-
-import { getWeekday } from './dates';
-
-// parseForecast is the ONLY export (default) from weatherParsing.js
-import WeatherParser from './WeatherParser';
-
 import Controller from './Controller.js';
 
 const API_KEY = process.env.API_KEY;

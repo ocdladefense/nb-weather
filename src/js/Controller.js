@@ -2,7 +2,7 @@
 import DailyForecast from "./DailyForecast.js";
 import WeatherParser from "./WeatherParser.js";
 
-//const apikey = process.env.API_KEY;
+const apikey = process.env.API_KEY;
 
 //Helper functions to make enhance readability and reusability
 //const buildGeoUrl = (zip) => `http://api.openweathermap.org/geo/1.0/zip?zip=${zip},US&${apikey}`;
@@ -20,33 +20,30 @@ export default class Controller {
         return `https://api.openweathermap.org/data/2.5/forecast?units=imperial&lat=${lat}&lon=${lon}&appid=${this.apikey}`; 
     }
 
-    /* I was trying to incorporate the changed made by Orion but I don't have time right now but here is the code Orion wrote 
+  //  async fetchLatLon(zip) {
+  //     try {
+  //       const response = await fetch(this.buildGeoUrl(zip));
+  //       if (!response.ok) throw new Error("Failed to fetch geolocation data.");
+  //       return await response.json();
 
-    async fetchLatLon(zip) {
-       try {
-         const response = await fetch(this.buildGeoUrl(zip));
-         if (!response.ok) throw new Error("Failed to fetch geolocation data.");
-         return await response.json();
+  //     } catch (error) {
+  //       console.error("Error in fetchLatLon:", error.message);
+  //       return null;
+  //     }
+  //   }
 
-       } catch (error) {
-         console.error("Error in fetchLatLon:", error.message);
-         return null;
-       }
-     }
-
-    async fetchRawData(lat, lon) {
-    try {
-      const response = await fetch(this.buildWeatherUrl(lat, lon));
-      if (!response.ok) throw new Error("Failed to fetch weather data.");
-      return await response.json();
+  //  async fetchRawData(lat, lon) {
+  //  try {
+  //    const response = await fetch(this.buildWeatherUrl(lat, lon));
+  //    if (!response.ok) throw new Error("Failed to fetch weather data.");
+  //    return await response.json();
 
 
-    } catch (error) {
-      console.error("Error in fetchRawData:", error.message);
-      return null;
-    }
-  }
-*/
+  //  } catch (error) {
+  //    console.error("Error in fetchRawData:", error.message);
+  //    return null;
+  //  }
+  //}
 
     async fetchForecast(zip) {
     try {
@@ -69,12 +66,8 @@ export default class Controller {
         
       let parser = new WeatherParser(weatherData.list);
         console.log(parser);
-        let finalArray = [];
-        for(let day in parser.grouped) {
-            let foo = parser.grouped[day];
-            finalArray.push(new DailyForecast(foo));
-        }
-        return finalArray;
+
+        return parser.finalArray;
 
     } catch (err) {
       console.error("Error in fetchForecast:", err);
