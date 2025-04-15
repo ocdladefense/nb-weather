@@ -19,5 +19,8 @@
         "editor.defaultFormatter": "fabianlauer.vs-code-xml-format"
     },
     "html.format.wrapLineLength": 0,
-    "visualforce.format.wrapLineLength": 0
+    "visualforce.format.wrapLineLength": 0,
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    }
 }

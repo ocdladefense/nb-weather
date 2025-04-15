@@ -34,8 +34,11 @@ const $root = document.getElementById("app-container");
 const root = createRoot($root);
 
 // temporarily fetching a forecast for the zipcode 97477 
-let forecast =  await window.c.fetchForecast("97477");
-console.log(forecast);
+const c = new Controller();
+const { lat, lon } = await window.c.fetchLatLon("97405");
+const weatherData = await window.c.fetchRawData(lat, lon);
+let forecast = window.c.sendRawWeatherDataToParser(weatherData);
+
 
 root.render(<App forecast={forecast} />);
 
