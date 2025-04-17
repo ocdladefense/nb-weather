@@ -1,28 +1,73 @@
+// import DailyForecast from "./DailyForecast";
+
+// export default class WeatherParser {
+//     grouped;
+//     finalArray;
+//     constructor(forecast, geo) {
+//         this.geo = geo;
+//         function GroupBy(obj) {
+
+//             //translate dt to JS date
+//             let dt = new Date(obj.dt * 1000);
+
+//             //make a date with format month.day
+//             let month = dt.getMonth();
+//             let day = dt.getDate();
+//             let key = month + "." + day;
+
+//             return key;
+//         }
+//         this.grouped = Object.groupBy(forecast, GroupBy);
+
+//         this.finalArray = [];
+//         for (let day in this.grouped) {
+//             let foo = this.grouped[day];
+//             this.finalArray.push(new DailyForecast(foo, this.geo));
+//         }
+//         console.log(this.finalArray);
+
+//     }
+// }
+import DailyForecast from "./DailyForecast";
+
 export default class WeatherParser {
     grouped;
-    constructor(forecast) {
-        function GroupBy(obj) {
+    finalArray;
+    constructor(forecast, name) {
+        this.forecast = forecast;
+        this.name = name;
+    }
 
-            //translate dt to JS date
-            let dt = new Date(obj.dt * 1000);
+    GroupBy(obj) {
+        //translate dt to JS date
+        let dt = new Date(obj.dt * 1000);
 
-            //make a date with format month.day
-            let month = dt.getMonth();
-            let day = dt.getDate();
-            let key = month + "." + day;
+        //make a date with format month.day
+        let month = dt.getMonth();
+        let day = dt.getDate();
+        let key = month + "." + day;
 
-            return key;
+        return key;
+    }
+
+    parse() {
+        if (!Array.isArray(this.forecast)) {
+            console.error("invalid forecast data");
         }
-        this.grouped = Object.groupBy(forecast, GroupBy);
 
-        // mock up what this object looks like, so you know how you're going to be accessing it.
-        /* 
+        this.grouped = Object.groupBy(this.forecast, this.GroupBy.bind(this));
+    }
 
-        {
-            month1.day1: [{forecastItem1}, {forecastItem1}, {forecastItem1}],
-            month2.day2: [{forecastItem2}, {forecastItem2}, {forecastItem2}],
+    getAsDailyForecast() {
+        if (!this.grouped || Object.keys(this.grouped).length == 0) {
+            console.error("Grouped data is missing or empty")
         }
-        
-        */
+
+        this.finalArray = [];
+        for (let day in this.grouped) {
+            let foo = this.grouped[day];
+            this.finalArray.push(new DailyForecast(foo, this.name));
+        }
+        return this.finalArray
     }
 }

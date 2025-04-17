@@ -10,24 +10,38 @@ import React from 'react';
 - DailyForecastDetails currentday(Show all of the important weather for a given day)                  Check[]
 */
 
+//TODO: get onClick handler to render WeatherListItemDetails
 
+function WeatherListItemDetails({day}) {
+    return(
+        <div key={day.dt} className="weather-list-item-details">
+            <h2>{day.getCity()} - {day.getFormattedDate()}</h2>
+            <p>{day.getDescription()} <img src={day.getIcon()} alt={day.getDescription()} /></p>
+            <p>High: {day.getHigh()}&deg;F, Low: {day.getLow()}&deg;F</p>
+            <p>Humidity: {day.getHumidity()}%, Wind: {day.getWind()} mph</p>
+
+        </div>
+    )
+}
 
 
 function WeatherListItem({day}) {
     return (
-<div key={day.dt} className="weather-list-item">
-      {day.getFormattedDate()} - High: {day.getHigh()}°F, Low: {day.getLow()}°F
+    <div key={day.dt} className="weather-list-item">
+      {day.getFormattedDate()} - High: {day.getCity()}°F, Low: {day.getLow()}°F
+      <WeatherListItemDetails day={day} />
     </div>
     )
 }
 
 function WeatherList({forecast}) {
     return(
- <div id="weatherList">
-   {forecast.map(day => <WeatherListItem day={day}/>)}
- </div>
+    <div id="weatherList">
+    {forecast.map(day => <WeatherListItem day={day}/>)}
+    </div>
     )
 }
+
 
 
 export default function App({forecast}) {

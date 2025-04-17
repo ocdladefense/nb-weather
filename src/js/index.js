@@ -3,7 +3,7 @@ import '../css/styles.scss';
 // import bootstrap from "bootstrap";
 
 import data from '../data/data.json';
-console.log(data);
+//console.log(data);
 
 import Main from './Main.js';
 // import "../css/input.css";
@@ -40,8 +40,13 @@ const $root = document.getElementById("app-container");
 const root = createRoot($root);
 
 // temporarily fetching a forecast for the zipcode 97477 
-let forecast =  await window.c.fetchForecast("97477");
+const c = new Controller();
+const { lat, lon, name } = await window.c.fetchLatLon("97405");
+const weatherData = await window.c.fetchRawData(lat, lon);
+let forecast = window.c.sendRawWeatherDataToParser(weatherData, name);
 console.log(forecast);
+
+//console.log(forecast);
 
 root.render(<App forecast={forecast} />);
 
