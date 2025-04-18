@@ -102,7 +102,7 @@ export default function App() {
         {error && <p className="text-danger mt-2">{error}</p>}
       </div>
 
-      <WeatherList forecast={forecast} />
+      {forecast.length > 0 && <WeatherList forecast={forecast} />}
     </div>
   );
 }

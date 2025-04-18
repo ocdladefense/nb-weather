@@ -69,8 +69,9 @@ export default class Controller {
     sendRawWeatherDataToParser(weatherData, name) {
         try {
             let parser = new WeatherParser(weatherData.list, name);
-
-            return parser.finalArray;
+            parser.parse();
+            let grouped = parser.getAsDailyForecast();
+            return grouped;
 
         } catch (err) {
             console.error("Error in fetchForecast:", err);
