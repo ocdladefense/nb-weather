@@ -38,7 +38,7 @@ const c = new Controller();
 const { lat, lon } = await window.c.fetchLatLon("97405");
 const weatherData = await window.c.fetchRawData(lat, lon);
 let forecast = window.c.sendRawWeatherDataToParser(weatherData);
-
+console.log(forecast);
 
 root.render(<App forecast={forecast} />);
 
