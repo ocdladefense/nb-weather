@@ -33,7 +33,6 @@ const regeneratorRuntime = require("regenerator-runtime");
 const $root = document.getElementById("app-container");
 const root = createRoot($root);
 
-// Make Controller globally accessible
 
 
 // Render the root React component
