@@ -66,9 +66,9 @@ export default class Controller {
         }
     }
 
-    sendRawWeatherDataToParser(weatherData) {
+    sendRawWeatherDataToParser(weatherData, name) {
         try {
-            let parser = new WeatherParser(weatherData.list);
+            let parser = new WeatherParser(weatherData.list, name);
 
             return parser.finalArray;
 
