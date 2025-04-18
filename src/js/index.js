@@ -3,9 +3,9 @@ import '../css/styles.scss';
 // import bootstrap from "bootstrap";
 
 import data from '../data/data.json';
-console.log(data);
+//console.log(data);
 
-//import Main from './Main.js';
+import Main from './Main.js';
 // import "../css/input.css";
 // import "@themes/active/css/theme.css";
 
@@ -33,14 +33,11 @@ const regeneratorRuntime = require("regenerator-runtime");
 const $root = document.getElementById("app-container");
 const root = createRoot($root);
 
-// temporarily fetching a forecast for the zipcode 97477 
-const c = new Controller();
-const { lat, lon } = await window.c.fetchLatLon("97405");
-const weatherData = await window.c.fetchRawData(lat, lon);
-let forecast = window.c.sendRawWeatherDataToParser(weatherData);
+// Make Controller globally accessible
 
 
-root.render(<App forecast={forecast} />);
+// Render the root React component
+root.render(<App />);
 
 
 

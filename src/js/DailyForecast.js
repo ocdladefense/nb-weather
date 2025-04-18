@@ -1,5 +1,3 @@
-
-
 export default class DailyForecast {
 
     static MORNING = 6;
@@ -7,119 +5,91 @@ export default class DailyForecast {
     static EVENING = 18;
     static NIGHT = 22;
 
-
-    constructor(data) {
-
+    constructor(data, name) {
         this.data = data;
+        this.name = name;
     }
-
-
-
 
     getLow() {
-
-        let lowTemps = this.data.map((day) => {
-            return day.main.temp_min;
-        });
-
-        return Math.min(...lowTemps);
+        return Math.min(...this.data.map(day => day.main.temp_min));
     }
-
 
     getHigh() {
-
-        let highTemps = this.data.map((day) => {
-            return day.main.temp_max;
-        });
-
-        return Math.max(...highTemps);
+        return Math.max(...this.data.map(day => day.main.temp_max));
     }
 
-
-    // We need an algorithm to find one or more data points that meet some creiteria around timestamp
-    // For example, if the timestamp is 12:00, we want to find the data points that are closest to 12:00.
-    // make a decision about how to determine the morning hour.
-    getPartOfDay(part) {
-        let dataLength = this.data.length;
-        for (let i = 0; i < dataLength; i++) {
-            let dt = new Date(this.data[i].dt * 1000);
-            dt = dt.getHours();
-            if (dt >= part) {
-                return dt;
-            }
-        }
+    // Helper: get hour from timestamp
+    getHour(dt) {
+        return new Date(dt * 1000).getHours();
     }
 
-    getDataByHour(h1) {
-        return this.data.filter((h) => {
-            let dt = new Date(h.dt * 1000);
-            let hours = dt.getHours();
-
-            return hours === h1;
+    // Finds the data point closest to the target hour
+    getClosestDataToHour(targetHour) {
+        let closest = this.data.reduce((prev, curr) => {
+            let prevHourDiff = Math.abs(this.getHour(prev.dt) - targetHour);
+            let currHourDiff = Math.abs(this.getHour(curr.dt) - targetHour);
+            return currHourDiff < prevHourDiff ? curr : prev;
         });
+        return closest;
     }
 
     getFormattedDate() {
-        return `${new Date(this.data[0].dt * 1000).getMonth() + 1}/${new Date(this.data[0].dt * 1000).getDate()}`;
+        let date = new Date(this.data[0].dt * 1000);
+        return `${date.getMonth() + 1}/${date.getDate()}`;
     }
 
+    getCity() {
+        return this.name;
+    }
 
+    getTempAt(partOfDay) {
+        let data = this.getClosestDataToHour(partOfDay);
+        return data?.main?.temp ?? 'N/A';
+    }
 
-    // These methods need work.
     getMorningTemp() {
-
-        // Get any data points that are representative of "morning" (6am)
-        let data = this.getDataByHour(this.getPartOfDay(DailyForecast.MORNING));
-        
-        return data.main.temp;
+        return this.getTempAt(DailyForecast.MORNING);
     }
-
 
     getDayTemp() {
-        // Get any data points that are representative of "morning" (6am)
-        let data = this.getDataByHour(this.getPartOfDay(DailyForecast.NOON));
-        
-        return data.main.temp;
-
-        
+        return this.getTempAt(DailyForecast.NOON);
     }
+
     getEveningTemp() {
-        // Get any data points that are representative of "morning" (6am)
-        let data = this.getDataByHour(this.getPartOfDay(DailyForecast.EVENING));
-
-        return data.main.temp;
+        return this.getTempAt(DailyForecast.EVENING);
     }
-
 
     getNightTemp() {
-        // Get any data points that are representative of "morning" (6am)
-        let data = this.getDataByHour(this.getPartOfDay(DailyForecast.NIGHT));
-
-        return data.main.temp;
+        return this.getTempAt(DailyForecast.NIGHT);
     }
 
+    getDataPointAt(partOfDay) {
+        return this.getClosestDataToHour(partOfDay);
+    }
 
     getDescription() {
-        let data = this.getDataByHour(this.getPartOfDay(NOON))
-        return data.weather[0].description
+        let data = this.getDataPointAt(DailyForecast.NOON);
+        return data?.weather?.[0]?.description ?? 'N/A';
     }
+
     getIcon() {
-        let data = this.getDataByHour(this.getPartOfDay(NOON))
-        return data.weather[0].icon;
+        let data = this.getDataPointAt(DailyForecast.NOON);
+        let icon = data?.weather?.[0]?.icon ?? '';
+        return icon ? `http://openweathermap.org/img/w/${icon}.png` : '';
     }
+
     getPressure() {
-        let data = this.getDataByHour(this.getPartOfDay(NOON))
-        return data.main.pressure;
+        let data = this.getDataPointAt(DailyForecast.NOON);
+        return data?.main?.pressure ?? 'N/A';
     }
+
     getWind() {
-        let data = this.getDataByHour(this.getPartOfDay(NOON))
-        return data.wind.speed;
+        let data = this.getDataPointAt(DailyForecast.NOON);
+        return data?.wind?.speed ?? 'N/A';
     }
+
     getHumidity() {
-        let data = this.getDataByHour(this.getPartOfDay(NOON))
-        return data.main.humidity;
+        let data = this.getDataPointAt(DailyForecast.NOON);
+        return data?.main?.humidity ?? 'N/A';
     }
-
-
-
 }
